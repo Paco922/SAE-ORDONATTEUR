@@ -1,0 +1,13 @@
+-- INFORMATIONS DES DONNEES --
+
+Format : x, y, couleur temple, couleur cristal
+
+couleurs :
+
+1 = bleu
+2 = rouge
+3 = jaune
+4 = vert
+5 = violet
+6 = noir
+
