@@ -9,18 +9,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import modele.Position;
 import java.io.File;
-import java.util.Scanner;
+import java.util.*;
 import java.io.File;
 import java.util.Scanner;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.scene.paint.Color;
+import java.util.HashMap;
 
 import static vue.ConstantesCanva.*;
 
 public class VBoxRoot extends VBox {
     private Label labelNombreDePas;
-    private Canvas canvasCarte;
+    private static Canvas canvasCarte;
     private static GraphicsContext graphicsContext2D;
     private Position positionApprenti;
     private boolean enMouvement = false;
@@ -69,8 +68,11 @@ public class VBoxRoot extends VBox {
 
         // Dessin de l'apprenti
         graphicsContext2D.setFill(COULEUR_APPRENTI);
-        graphicsContext2D.fillOval(positionApprenti.getAbscisse() * CARRE,
-                positionApprenti.getOrdonnee() * CARRE, LARGEUR_OVALE, HAUTEUR_OVALE);
+        graphicsContext2D.fillOval(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, LARGEUR_OVALE, HAUTEUR_OVALE);
+
+        // Dessin des temples, lecture du fichier
+        new ReadFromFileUsingScanner();
+
 
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
@@ -100,7 +102,7 @@ public class VBoxRoot extends VBox {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 1, positionApprenti.getOrdonnee() * CARRE + 1, CARRE - 2, CARRE - 2);
+                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4);
 
                 positionApprenti.deplacementUneCase(positionCliquee);
 
@@ -118,15 +120,19 @@ public class VBoxRoot extends VBox {
         timer.scheduleAtFixedRate(timerTask, 1000, 200);
     }
 
+    
 
-    public class ReadFromFileUsingScanner {
-        public static void main(String[] args) {
+    public static class ReadFromFileUsingScanner {
+        public ReadFromFileUsingScanner() {
             try {
                 // Chemin vers le fichier
-                File position = new File("C:\\Users\\22300445\\Downloads\\TP_Reservation_Java-main(2)\\TP_Reservation_Java-main\\demo\\src\\main\\java\\position.txt");
+                File position = new File("C:\\Users\\22300445\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
 
                 // Création d'un scanner pour lire le fichier
                 Scanner sc = new Scanner(position);
+
+                // Obtention du GraphicsContext à partir du Canvas
+                GraphicsContext graphicsContext2D = canvasCarte.getGraphicsContext2D();
 
                 // Lecture du fichier ligne par ligne
                 while (sc.hasNextLine()) {
@@ -141,8 +147,9 @@ public class VBoxRoot extends VBox {
                     int y = Integer.parseInt(values[1]);
 
                     // Extraction des couleurs du temple et du cristal
-                    Color couleurTemple = getColor(values[2]);
-                    Color couleurCristal = getColor(values[3]);
+                    //Color couleurTemple = ColorMapper.getColor(values[2]);
+                    //Color couleurCristal = ColorMapper.getColor(values[3]);
+
 
                     // Affichage des valeurs extraites
                     System.out.println("x : " + x + ", y : " + y + ", Couleur Temple : " + couleurTemple + ", Couleur Cristal : " + couleurCristal);
@@ -150,15 +157,6 @@ public class VBoxRoot extends VBox {
                     // Remplissage des cases du canvas avec les couleurs
                     graphicsContext2D.setFill(couleurTemple);
                     graphicsContext2D.fillRect(x * CARRE, y * CARRE, CARRE, CARRE);
-                    graphicsContext2D.setFill(couleurCristal);
-                    graphicsContext2D.fillRect((x + 1) * CARRE, y * CARRE, CARRE, CARRE);
-                    for (int i = 0; i < LARGEUR_CANVA; i += CARRE) {
-                        if (i == x) {
-                            graphicsContext2D.setFill(couleurTemple);
-                            graphicsContext2D.fillRect(x * CARRE, y * CARRE, CARRE, CARRE);
-
-                        }
-                    }
                 }
 
                 // Fermeture du scanner
@@ -169,22 +167,10 @@ public class VBoxRoot extends VBox {
             }
         }
 
-        // Méthode pour obtenir la couleur à partir du nom
-        private static Color getColor(String couleurName) {
-            switch (couleurName) {
-                case "COULEUR_BLEU":
-                    return ConstantesCanva.COULEUR_BLEU;
-                case "COULEUR_ROUGE":
-                    return ConstantesCanva.COULEUR_ROUGE;
-                case "COULEUR_JAUNE":
-                    return ConstantesCanva.COULEUR_JAUNE;
-                case "COULEUR_PURPLE":
-                    return ConstantesCanva.COULEUR_PURPLE;
-                case "COULEUR_BLACK":
-                    return ConstantesCanva.COULEUR_BLACK;
-                default:
-                    return Color.WHITE; // Valeur par défaut
-            }
-        }
+
     }
 }
+
+
+
+
