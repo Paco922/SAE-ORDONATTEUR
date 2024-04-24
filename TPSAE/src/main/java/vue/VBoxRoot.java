@@ -7,12 +7,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import modele.Position;
+
 import java.io.File;
 import java.util.*;
-import java.io.File;
 import java.util.Scanner;
-import javafx.scene.paint.Color;
 import java.util.HashMap;
 
 import static vue.ConstantesCanva.*;
@@ -73,7 +73,6 @@ public class VBoxRoot extends VBox {
         // Dessin des temples, lecture du fichier
         new ReadFromFileUsingScanner();
 
-
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
             if (!enMouvement) {
@@ -120,8 +119,6 @@ public class VBoxRoot extends VBox {
         timer.scheduleAtFixedRate(timerTask, 1000, 200);
     }
 
-    
-
     public static class ReadFromFileUsingScanner {
         public ReadFromFileUsingScanner() {
             try {
@@ -146,17 +143,18 @@ public class VBoxRoot extends VBox {
                     int x = Integer.parseInt(values[0]);
                     int y = Integer.parseInt(values[1]);
 
-                    // Extraction des couleurs du temple et du cristal
-                    //Color couleurTemple = ColorMapper.getColor(values[2]);
-                    //Color couleurCristal = ColorMapper.getColor(values[3]);
+                    String couleurTemple = values[2];
+                    String couleurCristal = values[3];
+                    System.out.println(couleurTemple);
+                    System.out.println(couleurCristal);
 
 
-                    // Affichage des valeurs extraites
-                    System.out.println("x : " + x + ", y : " + y + ", Couleur Temple : " + couleurTemple + ", Couleur Cristal : " + couleurCristal);
 
                     // Remplissage des cases du canvas avec les couleurs
-                    graphicsContext2D.setFill(couleurTemple);
+                    graphicsContext2D.setFill(Paint.valueOf(couleurTemple));
                     graphicsContext2D.fillRect(x * CARRE, y * CARRE, CARRE, CARRE);
+                    graphicsContext2D.setFill(Paint.valueOf(couleurCristal));
+                    graphicsContext2D.fillRect((x + 1) * CARRE, y * CARRE, CARRE, CARRE);
                 }
 
                 // Fermeture du scanner
@@ -166,11 +164,5 @@ public class VBoxRoot extends VBox {
                 e.printStackTrace();
             }
         }
-
-
     }
 }
-
-
-
-
