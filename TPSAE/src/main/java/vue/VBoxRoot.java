@@ -92,6 +92,7 @@ public class VBoxRoot extends VBox {
     /**
      * Méthode de déplacement avec un Timer.
      * Elle déplace l'apprenti vers la position cible.
+     * !! ENLEVER LA COULEUR QU'IL MET A CHAQUE DEPLACEMENT !!
      *
      * @param positionApprenti Position actuelle de l'apprenti.
      * @param positionCliquee  Position cible du déplacement.
@@ -101,7 +102,7 @@ public class VBoxRoot extends VBox {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4);
+                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4); // dimensiosn
 
                 positionApprenti.deplacementUneCase(positionCliquee);
 
@@ -119,11 +120,15 @@ public class VBoxRoot extends VBox {
         timer.scheduleAtFixedRate(timerTask, 1000, 200);
     }
 
+    /*
+    Read file from scanner
+    Lis tout simplement le document, parfait, juste a régler le probleme des deux cases l'une a cote de l'autre
+     */
     public static class ReadFromFileUsingScanner {
         public ReadFromFileUsingScanner() {
             try {
                 // Chemin vers le fichier
-                File position = new File("C:\\Users\\22300445\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
+                File position = new File("C:\\Users\\TEMP.DINFO\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
 
                 // Création d'un scanner pour lire le fichier
                 Scanner sc = new Scanner(position);
@@ -157,7 +162,7 @@ public class VBoxRoot extends VBox {
                     graphicsContext2D.fillRect((x + 1) * CARRE, y * CARRE, CARRE, CARRE);
                 }
 
-                // Fermeture du scanner
+                // Fermeture du scannerscr
                 sc.close();
             } catch (Exception e) {
                 // Gestion des exceptions
