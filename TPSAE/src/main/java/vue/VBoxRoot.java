@@ -82,8 +82,6 @@ public class VBoxRoot extends VBox {
                 int ordonnee = (int) event.getY() / CARRE;
                 Position positionCliquee = new Position(abscisse, ordonnee);
                 System.out.println(positionCliquee);
-                graphicsContext2D.setFill(COULEUR_POSITION);
-                graphicsContext2D.fillRect(abscisse * CARRE, ordonnee * CARRE, CARRE, CARRE);
                 deplacementAvecTimer(positionApprenti, positionCliquee);
             }
         });
