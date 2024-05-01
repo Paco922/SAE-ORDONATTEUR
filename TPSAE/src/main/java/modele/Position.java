@@ -1,7 +1,5 @@
 package modele;
 
-import javafx.geometry.Pos;
-
 public class Position {
     private static int nombreDePas = 0;
     private int abscisse;

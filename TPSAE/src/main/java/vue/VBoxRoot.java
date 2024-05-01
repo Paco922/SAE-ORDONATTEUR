@@ -5,12 +5,16 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import modele.Position;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -24,7 +28,14 @@ public class VBoxRoot extends VBox {
     private Position positionApprenti;
     private boolean enMouvement = false;
 
-    public VBoxRoot() {
+    // Chargement de l'image de l'apprenti (merci bing AI pour le sprite)
+
+    Image image = new Image("file:///C:/Users/admin/Downloads/SAE-ORDONATTEUR-main/SAE-ORDONATTEUR-main/ordonnateur.png");
+    ImageView ordonnateurImage = new ImageView(image);
+
+    public VBoxRoot() throws FileNotFoundException {
+
+
         // Position de départ de l'apprenti
         positionApprenti = new Position(LARGEUR_CANVA / (CARRE * 2), HAUTEUR_CANVA / (CARRE * 2));
 
@@ -67,8 +78,7 @@ public class VBoxRoot extends VBox {
         }
 
         // Dessin de l'apprenti
-        graphicsContext2D.setFill(COULEUR_APPRENTI);
-        graphicsContext2D.fillOval(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, LARGEUR_OVALE, HAUTEUR_OVALE);
+        graphicsContext2D.drawImage(ordonnateurImage.getImage(), 500,500);
 
         // Dessin des temples, lecture du fichier
         new ReadFromFileUsingScanner();
@@ -82,6 +92,14 @@ public class VBoxRoot extends VBox {
                 int ordonnee = (int) event.getY() / CARRE;
                 Position positionCliquee = new Position(abscisse, ordonnee);
                 System.out.println(positionCliquee);
+                // Si l'ordonnateur clique sur la case des ordonnées/abscisses ;
+                if (abscisse == 0){
+                    // On ne bouge pas
+                    positionCliquee = (positionApprenti);
+                }
+                if (ordonnee == 0){
+                    positionCliquee = (positionApprenti);
+                }
                 deplacementAvecTimer(positionApprenti, positionCliquee);
             }
         });
@@ -100,12 +118,12 @@ public class VBoxRoot extends VBox {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4); // dimensiosn
 
+                // Début du déplacement de l'apprenti
                 positionApprenti.deplacementUneCase(positionCliquee);
+                ordonnateurImage.setX(positionApprenti.getAbscisse());
+                ordonnateurImage.setY(positionApprenti.getOrdonnee());
 
-                graphicsContext2D.setFill(COULEUR_APPRENTI);
-                graphicsContext2D.fillOval(positionApprenti.getAbscisse() * CARRE + CARRE / 8, positionApprenti.getOrdonnee() * CARRE + CARRE / 4, LARGEUR_OVALE, HAUTEUR_OVALE);
 
                 Platform.runLater(() -> labelNombreDePas.setText("Nombre de pas : " + Position.getNombreDePas()));
 
@@ -126,7 +144,7 @@ public class VBoxRoot extends VBox {
         public ReadFromFileUsingScanner() {
             try {
                 // Chemin vers le fichier
-                File position = new File("C:\\Users\\TEMP.DINFO\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
+                File position = new File("C:\\Users\\admin\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
 
                 // Création d'un scanner pour lire le fichier
                 Scanner sc = new Scanner(position);
