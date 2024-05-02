@@ -77,9 +77,6 @@ public class VBoxRoot extends VBox {
             numLigne++;
         }
 
-        // Dessin de l'apprenti
-        graphicsContext2D.drawImage(ordonnateurImage.getImage(), 500,500);
-
         // Dessin des temples, lecture du fichier
         new ReadFromFileUsingScanner();
 
@@ -120,9 +117,12 @@ public class VBoxRoot extends VBox {
             public void run() {
 
                 // Début du déplacement de l'apprenti
+                ordonnateurImage.setImage(null);
+                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4);
+                Image ordonnateurImage = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\Ordonateur.png");
                 positionApprenti.deplacementUneCase(positionCliquee);
-                ordonnateurImage.setX(positionApprenti.getAbscisse());
-                ordonnateurImage.setY(positionApprenti.getOrdonnee());
+                ImageView en_mouv = new ImageView(ordonnateurImage);
+                graphicsContext2D.drawImage(en_mouv.getImage(), positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2); // dimensiosn
 
 
                 Platform.runLater(() -> labelNombreDePas.setText("Nombre de pas : " + Position.getNombreDePas()));
