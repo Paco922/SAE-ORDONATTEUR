@@ -30,7 +30,7 @@ public class VBoxRoot extends VBox {
 
     // Chargement de l'image de l'apprenti (merci bing AI pour le sprite)
 
-    Image image = new Image("file:///C:/Users/admin/Downloads/SAE-ORDONATTEUR-main/SAE-ORDONATTEUR-main/ordonnateur.png");
+    Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
 
     public VBoxRoot() throws FileNotFoundException {
@@ -144,7 +144,7 @@ public class VBoxRoot extends VBox {
         public ReadFromFileUsingScanner() {
             try {
                 // Chemin vers le fichier
-                File position = new File("C:\\Users\\admin\\Downloads\\SAE-ORDONATTEUR-main\\SAE-ORDONATTEUR-main\\position.txt");
+                File position = new File("C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\position.txt");
 
                 // Création d'un scanner pour lire le fichier
                 Scanner sc = new Scanner(position);
