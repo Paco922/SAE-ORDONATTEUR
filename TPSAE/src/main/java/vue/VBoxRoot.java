@@ -30,7 +30,7 @@ public class VBoxRoot extends VBox {
 
     // Chargement de l'image de l'apprenti (merci bing AI pour le sprite)
 
-    Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\Ordonateur.png");
+    Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
 
     public VBoxRoot() throws FileNotFoundException {
@@ -119,7 +119,7 @@ public class VBoxRoot extends VBox {
                 // Début du déplacement de l'apprenti
                 ordonnateurImage.setImage(null);
                 graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4);
-                Image ordonnateurImage = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\Ordonateur.png");
+                Image ordonnateurImage = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
                 positionApprenti.deplacementUneCase(positionCliquee);
                 ImageView en_mouv = new ImageView(ordonnateurImage);
                 graphicsContext2D.drawImage(en_mouv.getImage(), positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2); // dimensiosn
