@@ -9,9 +9,7 @@ public interface ConstantesCanva {
     public final int LARGEUR_CANVAS = 31;
     public final Color COULEUR_GRILLE = Color.BLACK;
     public final int CARRE = 40;
-
-    public final int LARGEUR_OVALE = 30;
-    public final int HAUTEUR_OVALE = 30;
+    public final String INTITULE_MENU_SCENARIOS = "Scénarios";
 
 
 

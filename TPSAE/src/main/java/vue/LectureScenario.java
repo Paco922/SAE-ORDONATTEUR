@@ -43,6 +43,7 @@ public class LectureScenario {
             System.out.println(e.getMessage());
        }
        return templesDuScenario;
-}
+    }
+
 
 }

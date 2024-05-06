@@ -10,17 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import modele.Position;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.Scanner;
 
 import static vue.ConstantesCanva.*;
 
-public class VBoxCanva extends VBox {
+public class MenuGraphique extends VBox {
     private Label labelNombreDePas;
-    private static Canvas canvasCarte;
-    private static GraphicsContext graphicsContext2D;
+    static Canvas canvasCarte;
+    static GraphicsContext graphicsContext2D;
     private Position positionApprenti;
     private boolean enMouvement = false;
 
@@ -30,11 +27,7 @@ public class VBoxCanva extends VBox {
     ImageView ordonnateurImage = new ImageView(image);
 
 
-    public VBoxCanva() throws FileNotFoundException {
-
-
-        // Position de départ de l'apprenti
-        positionApprenti = new Position(LARGEUR_CANVA / (CARRE * 2), HAUTEUR_CANVA / (CARRE * 2));
+    public MenuGraphique() {
 
         // Création de l'étiquette affichant le nombre de pas
         labelNombreDePas = new Label("Nombre de pas : 0");
@@ -74,8 +67,11 @@ public class VBoxCanva extends VBox {
             numLigne++;
         }
 
-        // Dessin des temples, lecture du fichier
-        new ReadFromFileUsingScanner();
+        // Dessin du ordonnateur
+        // Position de départ de l'apprenti
+        positionApprenti = new Position(LARGEUR_CANVA / (CARRE * 2), HAUTEUR_CANVA / (CARRE * 2));
+        graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2); // dimensiosn
+        //new ReadFromFileUsingScanner();
 
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
@@ -137,6 +133,8 @@ public class VBoxCanva extends VBox {
     Read file from scanner
     Lis tout simplement le document, parfait, juste a régler le probleme des deux cases l'une a cote de l'autre
      */
+
+    /*
     public static class ReadFromFileUsingScanner {
         public ReadFromFileUsingScanner() {
             try {
@@ -225,6 +223,8 @@ public class VBoxCanva extends VBox {
 
                 }
 
+
+
                 // Fermeture du scannerscr
                 sc.close();
             } catch (Exception e) {
@@ -233,7 +233,9 @@ public class VBoxCanva extends VBox {
             }
 
         }
-    }
 
+
+    }
+*/
 
 }

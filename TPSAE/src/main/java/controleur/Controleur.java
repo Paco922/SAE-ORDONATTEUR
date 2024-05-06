@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import modele.Temple;
 import vue.LectureScenario;
+import vue.VBoxRoot;
 
 import java.io.File;
 import java.util.Collection;
