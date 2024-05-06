@@ -1,11 +1,11 @@
 package vue;
 
+import controleur.VBoxRoot;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class ApprentiOrdonnateurApplication extends Application {

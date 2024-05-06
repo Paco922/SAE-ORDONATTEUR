@@ -8,20 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import modele.Position;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.Scanner;
-import java.util.HashMap;
 
 import static vue.ConstantesCanva.*;
 
-public class VBoxRoot extends VBox {
+public class VBoxCanva extends VBox {
     private Label labelNombreDePas;
     private static Canvas canvasCarte;
     private static GraphicsContext graphicsContext2D;
@@ -33,7 +29,8 @@ public class VBoxRoot extends VBox {
     Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
 
-    public VBoxRoot() throws FileNotFoundException {
+
+    public VBoxCanva() throws FileNotFoundException {
 
 
         // Position de départ de l'apprenti
@@ -144,7 +141,7 @@ public class VBoxRoot extends VBox {
         public ReadFromFileUsingScanner() {
             try {
                 // Chemin vers le fichier
-                File position = new File("C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\position.txt");
+                File position = new File("C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\senario0.txt");
 
                 // Création d'un scanner pour lire le fichier
                 Scanner sc = new Scanner(position);
@@ -169,13 +166,63 @@ public class VBoxRoot extends VBox {
                     System.out.println(couleurTemple);
                     System.out.println(couleurCristal);
 
+                    // Import des temples
+
+                    // Chargement des temples
+                    Image imp_templeBleu = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\TempleBleu.jpg");
+                    ImageView templeBleu = new ImageView(imp_templeBleu);
+
+                    Image imp_templeGris = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\TempleGris.jpg");
+                    ImageView templeGris = new ImageView(imp_templeGris);
+
+                    Image imp_templeOrange = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\TempleOrange.jpg");
+                    ImageView templeOrange = new ImageView(imp_templeOrange);
+
+                    Image imp_templeRouge = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\TempleRouge.png");
+                    ImageView templeRouge = new ImageView(imp_templeRouge);
+
+                    // Chargement des Cristaux
+                    Image imp_cristalBleu = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\CristaleBleu.png");
+                    ImageView cristalBleu = new ImageView(imp_cristalBleu);
+
+                    Image imp_cristalGris = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\CristaleGris.png");
+                    ImageView cristalGris = new ImageView(imp_cristalGris);
+
+                    Image imp_cristalVert = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\CristaleVert.png");
+                    ImageView cristaleVert = new ImageView(imp_cristalVert);
+
+                    Image imp_cristalRouge = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\CristaleRouge.png");
+                    ImageView cristalRouge = new ImageView(imp_cristalRouge);
 
 
-                    // Remplissage des cases du canvas avec les couleurs
-                    graphicsContext2D.setFill(Paint.valueOf(couleurTemple));
-                    graphicsContext2D.fillRect(x * CARRE, y * CARRE, CARRE, CARRE);
-                    graphicsContext2D.setFill(Paint.valueOf(couleurCristal));
-                    graphicsContext2D.fillRect((x + 1) * CARRE, y * CARRE, CARRE, CARRE);
+                    System.out.println(values[2].toString());
+                    if (values[2].equals(1)){
+                        graphicsContext2D.drawImage(templeBleu.getImage(),x * CARRE, y * CARRE);
+                    }
+                    if (values[2].equals(2)){
+                        graphicsContext2D.drawImage(templeOrange.getImage(), x * CARRE, y * CARRE);
+                    }
+                    if (values[2].equals(3)){
+                        graphicsContext2D.drawImage(templeRouge.getImage(), x * CARRE, y * CARRE);
+                    }
+                    if (values[2].equals(4)){
+                        graphicsContext2D.drawImage(templeGris.getImage(), x * CARRE, y * CARRE);
+                    }
+
+                    if (values[3].equals(1)){
+                        graphicsContext2D.drawImage(cristalBleu.getImage(),x * CARRE, y * CARRE);
+                    }
+                    if (values[3].equals(2)){
+                        graphicsContext2D.drawImage(cristaleVert.getImage(), x * CARRE, y * CARRE);
+                    }
+                    if (values[3].equals(3)){
+                        graphicsContext2D.drawImage(cristalRouge.getImage(), x * CARRE, y * CARRE);
+                    }
+                    if (values[3].equals(4)){
+                        graphicsContext2D.drawImage(cristalGris.getImage(), x * CARRE, y * CARRE);
+                    }
+
+
                 }
 
                 // Fermeture du scannerscr
@@ -184,6 +231,9 @@ public class VBoxRoot extends VBox {
                 // Gestion des exceptions
                 e.printStackTrace();
             }
+
         }
     }
+
+
 }
