@@ -23,6 +23,11 @@ public class Controleur implements EventHandler {
             Collection <Temple> temples = LectureScenario.lecture(fichierScenario);
             VBoxRoot.getApprenti().setTemples(temples);
             System.out.println(VBoxRoot.getApprenti());
+
+            // a completer, mettre le dessin dans ce if de chaque scénario
+            // effacer chaque carré
+            // mettre ls temples & cristaux
+            // good luck
     }
 }
 }
