@@ -8,8 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import modele.Position;
+import java.util.Scanner;
 
+import java.io.File;
 import java.util.*;
 
 import static vue.ConstantesCanva.*;
@@ -21,11 +24,11 @@ public class MenuGraphique extends VBox {
     private Position positionApprenti;
     private boolean enMouvement = false;
 
-    // Chargement de l'image de l'apprenti (merci bing AI pour le sprite)
-
+    // Chargement de l'image de l'apprenti
     Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
 
+    // Constants for the grid
 
     public MenuGraphique() {
 
@@ -33,16 +36,14 @@ public class MenuGraphique extends VBox {
         labelNombreDePas = new Label("Nombre de pas : 0");
 
         // Initialisation du canvas et de son contexte graphique
-        canvasCarte = new Canvas();
-        canvasCarte.setWidth(LARGEUR_CANVA);
-        canvasCarte.setHeight(HAUTEUR_CANVA);
+        canvasCarte = new Canvas(LARGEUR_CANVA, HAUTEUR_CANVA);
         graphicsContext2D = canvasCarte.getGraphicsContext2D();
 
         // Dessin des carrés de la grille
         graphicsContext2D.setStroke(COULEUR_GRILLE);
-        for (int i = 0; i < LARGEUR_CANVA; i += CARRE) {
-            for (int j = 0; j < HAUTEUR_CANVA; j += CARRE) {
-                graphicsContext2D.strokeRect(i, j, CARRE, CARRE);
+        for (int i = 0; i <= 30; i++) {
+            for (int j = 0; j <= 30; j++) {
+                graphicsContext2D.strokeRect(i * CARRE, j * CARRE, CARRE, CARRE);
             }
         }
 
@@ -53,25 +54,24 @@ public class MenuGraphique extends VBox {
         VBox.setMargin(canvasCarte, new Insets(30));
 
         // Dessin des numéros de colonnes
-        int numCol = 1;
+        int numCol = -15;
         graphicsContext2D.setFill(COULEUR_GRILLE);
-        for (int i = CARRE; i < LARGEUR_CANVA; i += CARRE) {
-            graphicsContext2D.fillText(Integer.toString(numCol), i + CARRE / 3, CARRE / 2);
+        for (int i = 0; i <= 30; i++) {
+            graphicsContext2D.fillText(Integer.toString(numCol), i * CARRE + CARRE / 3, CARRE / 2);
             numCol++;
         }
 
         // Dessin des numéros de lignes
-        int numLigne = 1;
-        for (int i = CARRE; i < HAUTEUR_CANVA; i += CARRE) {
-            graphicsContext2D.fillText(Integer.toString(numLigne), CARRE / 3, i + CARRE / 2);
+        int numLigne = -15;
+        for (int i = 0; i <= 30; i++) {
+            graphicsContext2D.fillText(Integer.toString(numLigne), CARRE / 3, i * CARRE + CARRE / 2);
             numLigne++;
         }
 
         // Dessin du ordonnateur
         // Position de départ de l'apprenti
-        positionApprenti = new Position(LARGEUR_CANVA / (CARRE * 2), HAUTEUR_CANVA / (CARRE * 2));
-        graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2); // dimensiosn
-        //new ReadFromFileUsingScanner();
+        positionApprenti = new Position(0, 0);
+        graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE);
 
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
@@ -83,12 +83,9 @@ public class MenuGraphique extends VBox {
                 Position positionCliquee = new Position(abscisse, ordonnee);
                 System.out.println(positionCliquee);
                 // Si l'ordonnateur clique sur la case des ordonnées/abscisses ;
-                if (abscisse == 0){
+                if (abscisse == -15 || ordonnee == -15){
                     // On ne bouge pas
-                    positionCliquee = (positionApprenti);
-                }
-                if (ordonnee == 0){
-                    positionCliquee = (positionApprenti);
+                    positionCliquee = positionApprenti;
                 }
                 deplacementAvecTimer(positionApprenti, positionCliquee);
             }
@@ -108,15 +105,39 @@ public class MenuGraphique extends VBox {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+                // Effacez le contenu actuel du canvas en remplissant le canvas avec la couleur de fond (blanc, par exemple)
+                graphicsContext2D.setFill(Color.WHITE);
+                graphicsContext2D.fillRect(0, 0, canvasCarte.getWidth(), canvasCarte.getHeight());
 
-                // Début du déplacement de l'apprenti
-                ordonnateurImage.setImage(null);
-                graphicsContext2D.clearRect(positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2, CARRE - 4, CARRE - 4);
-                Image ordonnateurImage = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
+                // Dessinez à nouveau la grille
+                graphicsContext2D.setStroke(COULEUR_GRILLE);
+                for (int i = 0; i <= 30; i++) {
+                    for (int j = 0; j <= 30; j++) {
+                        graphicsContext2D.strokeRect(i * CARRE, j * CARRE, CARRE, CARRE);
+                    }
+
+                }
+                int numCol = -15;
+                graphicsContext2D.setFill(COULEUR_GRILLE);
+                for (int i = 0; i <= 30; i++) {
+                    graphicsContext2D.fillText(Integer.toString(numCol), i * CARRE + CARRE / 3, CARRE / 2);
+                    numCol++;
+                }
+
+                // Dessin des numéros de lignes
+                int numLigne = -15;
+                for (int i = 0; i <= 30; i++) {
+                    graphicsContext2D.fillText(Integer.toString(numLigne), CARRE / 3, i * CARRE + CARRE / 2);
+                    numLigne++;
+                }
+
+                // Déplacez l'apprenti
                 positionApprenti.deplacementUneCase(positionCliquee);
-                ImageView en_mouv = new ImageView(ordonnateurImage);
-                graphicsContext2D.drawImage(en_mouv.getImage(), positionApprenti.getAbscisse() * CARRE + 2, positionApprenti.getOrdonnee() * CARRE + 2); // dimensiosn
 
+                // Dessinez l'image de l'apprenti à sa nouvelle position
+                Image ordonnateurImage = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
+                ImageView en_mouv = new ImageView(ordonnateurImage);
+                graphicsContext2D.drawImage(en_mouv.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE); // dimensions
 
                 Platform.runLater(() -> labelNombreDePas.setText("Nombre de pas : " + Position.getNombreDePas()));
 
