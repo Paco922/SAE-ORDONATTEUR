@@ -13,4 +13,8 @@ public class Temple {
         this.cristal = cristal;
 
     }
+
+    public Position getPosition() {
+        return position;
+    }
 }
