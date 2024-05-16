@@ -129,6 +129,40 @@ public class MenuGraphique extends VBox {
         timer.scheduleAtFixedRate(timerTask, 1000, 200);
     }
 
+    public void dessinSurCarte(File fichierScenario) {
+
+        // Création d'un scanner pour lire le fichier
+        Scanner sc = null;
+        try {
+            sc = new Scanner(fichierScenario);
+        } catch (Exception e) {
+            System.out.println("Erreur");
+        }
+
+        // Obtention du GraphicsContext à partir du Canvas
+        GraphicsContext graphicsContext2D = canvasCarte.getGraphicsContext2D();
+
+        // Lecture du fichier ligne par ligne
+        while (sc.hasNextLine()) {
+            // Lecture de la ligne courante
+            String line = sc.nextLine();
+
+            // Séparation des valeurs en utilisant la virgule comme séparateur
+            String[] values = line.split(", ");
+
+            // Extraction des valeurs x et y
+            int x = Integer.parseInt(values[0]);
+            int y = Integer.parseInt(values[1]);
+
+            String couleurTemple = values[2];
+            String couleurCristal = values[3];
+
+
+        }
+
+
+    }
+
     /*
     Read file from scanner
     Lis tout simplement le document, parfait, juste a régler le probleme des deux cases l'une a cote de l'autre

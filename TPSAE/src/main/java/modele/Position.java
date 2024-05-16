@@ -38,7 +38,7 @@ public class Position {
         }
 
 
-    }
+}
         /**
      * La methode equal retourne vrai quand l'abscisse de this est egale a l'abscisse du parametre et que
      * l'ordonée de this est egal a l'ordonnée du parametre
