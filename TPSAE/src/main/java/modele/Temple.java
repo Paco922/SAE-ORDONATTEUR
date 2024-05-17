@@ -17,4 +17,19 @@ public class Temple {
     public Position getPosition() {
         return position;
     }
+
+    public int getCouleurTemple(){
+        return couleur;
+    }
+
+    public int getCouleurCristal(){
+        return cristal;
+    }
+    public String toString() {
+        return "Temple{" +
+                "position=" + position +
+                ", couleur=" + couleur +
+                ", cristal=" + cristal +
+                '}';
+    }
 }
