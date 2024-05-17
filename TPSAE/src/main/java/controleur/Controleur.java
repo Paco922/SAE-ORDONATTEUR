@@ -3,12 +3,14 @@ package controleur;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
+import modele.Position;
 import modele.Temple;
 import vue.LectureScenario;
 import vue.VBoxRoot;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 
 public class Controleur implements EventHandler {
 
@@ -17,9 +19,9 @@ public class Controleur implements EventHandler {
         if(userData instanceof File){//l'user vient de choisir un scenario
             File fichierScenario = (File) userData;
             System.out.println(fichierScenario.getName());
-            Collection <Temple> temples = LectureScenario.lecture(fichierScenario);
-
-            VBoxRoot.getApprenti().setTemples(temples);
+            HashMap<Position, Temple> temples = LectureScenario.lecture(fichierScenario);
+            System.out.println(temples.toString());
+            System.out.println(temples);
             System.out.println(VBoxRoot.getApprenti());
 
             // a completer, mettre le dessin dans ce if de chaque scénario
@@ -29,5 +31,6 @@ public class Controleur implements EventHandler {
     }
     }
 }
-}
+
+
 
