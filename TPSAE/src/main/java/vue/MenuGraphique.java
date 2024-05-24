@@ -70,7 +70,7 @@ public class MenuGraphique extends VBox {
 
         // Dessin du ordonnateur
         // Position de départ de l'apprenti
-        positionApprenti = new Position(0, 0);
+        positionApprenti = new Position(15, 15);
         graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE);
 
         // Gestion des clics sur le canvas
