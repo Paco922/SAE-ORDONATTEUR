@@ -11,46 +11,58 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 
+/**
+ * Classe représentant la racine de l'interface graphique.
+ * Extends BorderPane et implémente ConstantesCanva.
+ */
 public class VBoxRoot extends BorderPane implements ConstantesCanva {
 
-    private static ApprentiOrdonnateur apprenti ;
+    private static ApprentiOrdonnateur apprenti;
     private static Controleur controleur;
-
     private static MenuGraphique menuGraphique;
 
-    public VBoxRoot (){
+    /**
+     * Constructeur de la classe VBoxRoot.
+     * Initialise l'apprenti, le contrôleur et le menu graphique.
+     * Crée la barre des menus et charge les scénarios disponibles.
+     */
+    public VBoxRoot() {
         apprenti = new ApprentiOrdonnateur();
         controleur = new Controleur();
         menuGraphique = new MenuGraphique();
 
-        // la barre des menus
+        // La barre des menus
         MenuBar menuBar = new MenuBar();
-
         VBox.setMargin(menuBar, new Insets(9));
 
-        // le menu des scénarios
+        // Le menu des scénarios
         Menu menuScenarios = new Menu(INTITULE_MENU_SCENARIOS);
         menuBar.getMenus().add(menuScenarios);
 
         // Les items du menu scénario
-        File[]scenario = new File("Scenario").listFiles();
-        for (int i = 0 ; i < scenario.length ; i++){
+        File[] scenario = new File("Scenario").listFiles();
+        for (int i = 0; i < scenario.length; i++) {
             MenuItem menuItem = new MenuItem(scenario[i].getName());
             menuItem.setUserData(scenario[i]);
             menuItem.setOnAction(controleur);
             menuScenarios.getItems().add(menuItem);
         }
 
-        // Ajout de la barre des menus, et du canvas du jeu
+        // Ajout de la barre des menus et du canvas du jeu
         this.setTop(menuBar);
         this.setCenter(menuGraphique);
-
-
     }
 
-
-
+    /**
+     * Retourne l'instance de l'apprenti ordonnateur.
+     *
+     * @return l'apprenti ordonnateur.
+     */
     public static ApprentiOrdonnateur getApprenti() {
         return apprenti;
     }
+
+    public static Controleur getControleur() { return controleur;}
+
+    public static MenuGraphique getMenuGraphique(){ return menuGraphique;}
 }

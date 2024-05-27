@@ -1,42 +1,56 @@
 package modele;
 
-import java.util.List;
-import java.util.ArrayList;
+import vue.ConstantesCanva;
+
 import java.util.Collection;
 
 public class ApprentiOrdonnateur {
     Collection <Temple> temples;
-    List<Integer> mesCristaux = new ArrayList<>();
+    int monCristal;
 
+    Position positionApprenti;
+
+    // Accesseur pour la classe Temple
+    private Temple templeTest;
+    // Setteur pour le temple  .
+
+    public ApprentiOrdonnateur(){
+        monCristal = 0;
+        positionApprenti = new Position(ConstantesCanva.LARGEUR_CANVAS/(2 * ConstantesCanva.CARRE),
+                ConstantesCanva.LARGEUR_CANVAS/(2 * ConstantesCanva.CARRE));
+    }
     public void setTemples(Collection<Temple> temples){
         this.temples = temples;
     }
 
-    public void recupCristaux(int couleur_cristal){
+    /**
+     * Méthode switchCristal, met le cristal dans l'inventaire de l'ordonnateur,
+     * et met le cristal qui était dans l'inventaire de l'ordonnateur, dans la couleur du temple
+     * @param cristalARecup, le cristal qui est à récupérer
+     * @param cristalADonner, le cristal qui est à donner (au temple)
+     */
+    public void switchCristal(int cristalARecup, int cristalADonner){
 
-        if (mesCristaux.size() > 0){
-            return;
-        }
 
-        mesCristaux.add(couleur_cristal);
+        templeTest.setCouleurCristal(cristalADonner);
+        monCristal = cristalARecup;
 
     }
-
-    public void switchCristal(int cristalAEchanger){
-
-        mesCristaux.remove(0);
-        mesCristaux.add(cristalAEchanger);
+    /**
+     * Accesseur sur le champ monCristal
+     * @return le cristal de l'ordonnateur
+     */
+    public int getMonCristal(){
+        return monCristal;
     }
 
-    public int getCristaux(){
-        return mesCristaux.get(0);
-    }
-
+    /**
+     * Méthode booléene estVide, vérifie si l'ordonnateur porte un cristal
+     * @return booléen, true si vide, faux sinon.
+     */
     public boolean estVide(){
-        if (mesCristaux.size() > 0){
-            return false;
-        }
-        return true;
+
+        return monCristal == 0;
     }
 }
 

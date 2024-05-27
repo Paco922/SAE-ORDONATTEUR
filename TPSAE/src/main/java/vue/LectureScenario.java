@@ -4,19 +4,25 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.File;
 
-
-import javafx.geometry.Pos;
 import modele.Position;
 import modele.Temple;
 import static vue.ConstantesCanva.*;
 
-
+/**
+ * Classe pour lire les fichiers de scénario et créer des objets Temple basés sur les données du fichier.
+ */
 public class LectureScenario {
-    // Les variables champs
+    // Variables d'instance
     private Position position;
-    private int couleur; // Assuming couleur is an int representing color
-    private int cristal; // Assuming cristal is an int
+    private int couleur; // Supposons que couleur est un int représentant la couleur
+    private int cristal; // Supposons que cristal est un int
 
+    /**
+     * Lit un fichier de scénario et crée une carte des temples.
+     *
+     * @param fichierScenario le fichier de scénario à lire.
+     * @return un HashMap avec les positions comme clés et les temples comme valeurs représentant le scénario.
+     */
     public static HashMap<Position, Temple> lecture(File fichierScenario) {
         // Remplacer la liste par un type de collection plus adapté
         HashMap<Position, Temple> templesDuScenario = new HashMap<>();
@@ -26,9 +32,9 @@ public class LectureScenario {
             Temple temple;
             while (scanner.hasNext()) {
                 // LARGEUR_CANVAS = 31 HAUTEUR_CANVA = 31
-                // permet de traiter tout les scénarios proposés
-                int posX = scanner.nextInt();
-                int posY = scanner.nextInt();
+                // permet de traiter tous les scénarios proposés
+                int posX = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);
+                int posY = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);;
                 int couleur = scanner.nextInt();
                 int cristal = scanner.nextInt();
                 temple = new Temple(new Position(posX, posY), couleur, cristal);
@@ -42,6 +48,11 @@ public class LectureScenario {
         return templesDuScenario;
     }
 
+    /**
+     * Retourne une représentation sous forme de chaîne de la classe LectureScenario.
+     *
+     * @return une chaîne décrivant l'objet LectureScenario.
+     */
     @Override
     public String toString() {
         return "LectureScenario{" +
@@ -51,5 +62,3 @@ public class LectureScenario {
                 '}';
     }
 }
-
-

@@ -49,6 +49,8 @@ public class Position {
                     return true;
             return false;
     }
+
+    
     public int getAbscisse(){
         return abscisse;
 
@@ -59,7 +61,7 @@ public class Position {
     // à compléter avec la méthode equals(),
     // les acceseurs nécessaires et la méthode toString()
     public String toString(){
-        return abscisse +" " + ordonnee ;
+        return "[ " + abscisse +"," + ordonnee + "]" ;
     }
     public static int getNombreDePas(){
         return nombreDePas;

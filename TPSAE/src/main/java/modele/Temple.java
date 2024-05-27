@@ -36,6 +36,12 @@ public class Temple {
         return position;
     }
 
+    public void setCouleurCristal(int couleur){
+
+        this.couleur = couleur;
+
+    }
+
     public int getCouleurTemple(){
         return couleur;
     }

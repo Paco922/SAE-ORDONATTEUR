@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import modele.ApprentiOrdonnateur;
 import modele.Position;
 import modele.Temple;
 
@@ -20,10 +21,16 @@ import java.util.TimerTask;
 
 import static vue.ConstantesCanva.*;
 
+/**
+ * Classe représentant le menu graphique de l'application.
+ * Cette classe est responsable de l'affichage et de la gestion des interactions avec l'utilisateur.
+ */
 public class MenuGraphique extends VBox {
     private Label labelNombreDePas;
     static Canvas canvasCarte;
     static GraphicsContext graphicsContext2D;
+
+    private ApprentiOrdonnateur apprentiOrdonnateur;
     private Position positionApprenti;
     private boolean enMouvement = false;
     private Controleur controleur;
@@ -33,12 +40,16 @@ public class MenuGraphique extends VBox {
     ImageView ordonnateurImage = new ImageView(image);
     private HashMap<Position, Temple> templeMap;
 
+    /**
+     * Constructeur de la classe MenuGraphique.
+     * Initialise l'interface graphique et les gestionnaires d'événements.
+     */
     public MenuGraphique() {
         // Création de l'étiquette affichant le nombre de pas
         labelNombreDePas = new Label("Nombre de pas : 0");
 
         // Initialisation du canvas et de son contexte graphique
-        canvasCarte = new Canvas(LARGEUR_CANVA, HAUTEUR_CANVA);
+        canvasCarte = new Canvas(LARGEUR_CANVAS, HAUTEUR_CANVAS);
         graphicsContext2D = canvasCarte.getGraphicsContext2D();
 
         // Dessin des carrés de la grille
@@ -59,6 +70,8 @@ public class MenuGraphique extends VBox {
 
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
+            templeMap = VBoxRoot.getMenuGraphique().getTempleMap();
+            System.out.println("Templemap de MenuGraphique" + templeMap);
             if (!enMouvement) {
                 enMouvement = true;
 
@@ -75,18 +88,36 @@ public class MenuGraphique extends VBox {
         });
     }
 
+    /**
+     * Définit le contrôleur de l'application.
+     *
+     * @param controleur le contrôleur à associer.
+     */
     public void setControleur(Controleur controleur) {
         this.controleur = controleur;
     }
 
+    /**
+     * Définit la carte des temples.
+     *
+     * @param templeMap la carte des temples.
+     */
     public void setTempleMap(HashMap<Position, Temple> templeMap) {
         this.templeMap = templeMap;
     }
 
+    /**
+     * Retourne la carte des temples.
+     *
+     * @return la carte des temples.
+     */
     public HashMap<Position, Temple> getTempleMap() {
         return templeMap;
     }
 
+    /**
+     * Dessine la grille sur le canvas.
+     */
     private void dessinerGrille() {
         graphicsContext2D.setStroke(COULEUR_GRILLE);
         for (int i = 0; i <= 30; i++) {
@@ -96,21 +127,31 @@ public class MenuGraphique extends VBox {
         }
     }
 
+    /**
+     * Dessine les numéros des colonnes et des lignes sur le canvas.
+     */
     private void dessinerNumeros() {
-        int numCol = -15;
+        int numCol = 0;
         graphicsContext2D.setFill(COULEUR_GRILLE);
         for (int i = 0; i <= 30; i++) {
             graphicsContext2D.fillText(Integer.toString(numCol), i * CARRE + CARRE / 3, CARRE / 2);
             numCol++;
         }
 
-        int numLigne = -15;
+        int numLigne = 0;
         for (int i = 0; i <= 30; i++) {
             graphicsContext2D.fillText(Integer.toString(numLigne), CARRE / 3, i * CARRE + CARRE / 2);
             numLigne++;
         }
     }
 
+    /**
+     * Gère le déplacement de l'apprenti avec un timer pour les animations.
+     *
+     * @param positionApprenti la position actuelle de l'apprenti.
+     * @param positionCliquee  la position cliquée par l'utilisateur.
+     * @param templeMap        la carte des temples.
+     */
     private void deplacementAvecTimer(Position positionApprenti, Position positionCliquee, HashMap<Position, Temple> templeMap) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -125,6 +166,8 @@ public class MenuGraphique extends VBox {
 
                     positionApprenti.deplacementUneCase(positionCliquee);
 
+
+
                     if (controleur != null) {
                         controleur.redessinerTemples();
                     }
@@ -136,6 +179,7 @@ public class MenuGraphique extends VBox {
                     if (positionApprenti.equals(positionCliquee)) {
                         timer.cancel();
                         enMouvement = false;
+                        touchTemple(positionCliquee);
                     }
                 });
             }
@@ -143,18 +187,39 @@ public class MenuGraphique extends VBox {
         timer.scheduleAtFixedRate(timerTask, 0, 200);
     }
 
+    /** La méthode échange le cristal de l'ordonnateur avec celui du temple,
+     * Qui a pour position le paramêtre donné
+     *
+     * @param positionTemple : le temple ou est arrivé l'ordonnateur
+     */
+    public void touchTemple(Position positionTemple){
+
+        System.out.println(" dans touchTemple " + templeMap);
+        System.out.println(" dans touchTemple " + templeMap.keySet());
+        System.out.println(" dans touchTemple " + templeMap
+        System.out.println(" dans touchTemple " + templeMap.get(positionTemple));
+        System.out.println(" dans touchTemple " + positionTemple);
+        apprentiOrdonnateur.switchCristal(templeMap.get(positionTemple).getCouleurCristal(), apprentiOrdonnateur.getMonCristal());
+
+
+
+    }
+
+    /**
+     * Dessine les temples sur la carte.
+     *
+     * @param templeMap la carte des temples.
+     */
     public void dessinSurCarte(HashMap<Position, Temple> templeMap) {
         dessinerGrille();
         dessinerNumeros();
-
-
 
         for (Map.Entry<Position, Temple> entry : templeMap.entrySet()) {
             Position position = entry.getKey();
             Temple temple = entry.getValue();
 
-            double pixelX = (position.getAbscisse() + 15) * CARRE;
-            double pixelY = (position.getOrdonnee() + 15) * CARRE;
+            double pixelX = (position.getAbscisse()) * CARRE;
+            double pixelY = (position.getOrdonnee()) * CARRE;
 
             graphicsContext2D.setFill(temple.getCouleurValue(temple.couleur));
             graphicsContext2D.fillRect(pixelX, pixelY, CARRE, CARRE);

@@ -9,13 +9,14 @@ import modele.Position;
 import modele.Temple;
 import vue.LectureScenario;
 import vue.MenuGraphique;
+import vue.VBoxRoot;
 
 public class Controleur implements EventHandler {
-    MenuGraphique menuGraphique = new MenuGraphique();
+
 
     public void handle(Event event){
 
-
+        MenuGraphique menuGraphique = VBoxRoot.getMenuGraphique();
         Object userData = ((MenuItem)event.getSource()).getUserData();
         if(userData instanceof File){//l'user vient de choisir un scenario
             File fichierScenario = (File) userData;
@@ -32,6 +33,7 @@ public class Controleur implements EventHandler {
     }
 
     public void redessinerTemples() {
+        MenuGraphique menuGraphique = VBoxRoot.getMenuGraphique();
         HashMap<Position, Temple> temples = menuGraphique.getTempleMap();
         if (temples != null) {
             menuGraphique.dessinSurCarte(temples);
