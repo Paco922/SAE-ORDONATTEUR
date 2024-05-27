@@ -27,8 +27,8 @@ public class LectureScenario {
             while (scanner.hasNext()) {
                 // LARGEUR_CANVAS = 31 HAUTEUR_CANVA = 31
                 // permet de traiter tout les scénarios proposés
-                int posX = scanner.nextInt() + LARGEUR_CANVA / (2 * CARRE);
-                int posY = scanner.nextInt() + HAUTEUR_CANVA / (2 * CARRE);
+                int posX = scanner.nextInt();
+                int posY = scanner.nextInt();
                 int couleur = scanner.nextInt();
                 int cristal = scanner.nextInt();
                 temple = new Temple(new Position(posX, posY), couleur, cristal);

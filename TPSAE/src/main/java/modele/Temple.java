@@ -1,4 +1,6 @@
 package modele;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Temple {
 
@@ -12,6 +14,22 @@ public class Temple {
         this.couleur = couleur;
         this.cristal = cristal;
 
+    }
+
+    public Paint getCouleurValue(int couleur){
+        switch (couleur) {
+            case 1: return Color.RED;
+            case 2: return Color.ORANGE;
+            case 3: return Color.YELLOW;
+            case 4: return Color.GREEN;
+            case 5: return Color.BLUE;
+            case 6: return Color.INDIGO;
+            case 7: return Color.VIOLET;
+            case 8: return Color.PINK;
+            case 9: return Color.BROWN;
+            case 10: return Color.GRAY;
+            default: return Color.BLACK;
+        }
     }
 
     public Position getPosition() {
