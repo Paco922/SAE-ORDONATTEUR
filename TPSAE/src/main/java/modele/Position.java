@@ -1,5 +1,7 @@
 package modele;
 
+import java.util.Objects;
+
 public class Position {
     private static int nombreDePas = 0;
     private int abscisse;
@@ -50,11 +52,24 @@ public class Position {
             return false;
     }
 
-    
+
     public int getAbscisse(){
         return abscisse;
 
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return abscisse == position.abscisse && ordonnee == position.ordonnee;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(abscisse, ordonnee);
+    }
+
     public int getOrdonnee(){
         return ordonnee;
     }

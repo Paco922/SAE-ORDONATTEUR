@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import java.io.File;
 import java.util.HashMap;
+
+import modele.ApprentiOrdonnateur;
 import modele.Position;
 import modele.Temple;
 import vue.LectureScenario;
@@ -31,6 +33,7 @@ public class Controleur implements EventHandler {
         }
 
     }
+
 
     public void redessinerTemples() {
         MenuGraphique menuGraphique = VBoxRoot.getMenuGraphique();

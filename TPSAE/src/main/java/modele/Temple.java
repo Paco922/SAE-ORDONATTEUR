@@ -49,6 +49,7 @@ public class Temple {
     public int getCouleurCristal(){
         return cristal;
     }
+
     public String toString() {
         return "Temple{" +
                 "position=" + position +

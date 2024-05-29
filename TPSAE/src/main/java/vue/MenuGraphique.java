@@ -30,7 +30,7 @@ public class MenuGraphique extends VBox {
     static Canvas canvasCarte;
     static GraphicsContext graphicsContext2D;
 
-    private ApprentiOrdonnateur apprentiOrdonnateur;
+    private ApprentiOrdonnateur apprentiOrdonnateur = new ApprentiOrdonnateur();
     private Position positionApprenti;
     private boolean enMouvement = false;
     private Controleur controleur;
@@ -38,7 +38,7 @@ public class MenuGraphique extends VBox {
     // Chargement de l'image de l'apprenti
     Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
-    private HashMap<Position, Temple> templeMap;
+    public HashMap<Position, Temple> templeMap = new HashMap<>();  // Initialize templeMap
 
     /**
      * Constructeur de la classe MenuGraphique.
@@ -71,7 +71,7 @@ public class MenuGraphique extends VBox {
         // Gestion des clics sur le canvas
         canvasCarte.setOnMouseClicked(event -> {
             templeMap = VBoxRoot.getMenuGraphique().getTempleMap();
-            System.out.println("Templemap de MenuGraphique" + templeMap);
+            System.out.println("Templemap de MenuGraphique: " + templeMap);
             if (!enMouvement) {
                 enMouvement = true;
 
@@ -166,8 +166,6 @@ public class MenuGraphique extends VBox {
 
                     positionApprenti.deplacementUneCase(positionCliquee);
 
-
-
                     if (controleur != null) {
                         controleur.redessinerTemples();
                     }
@@ -179,7 +177,13 @@ public class MenuGraphique extends VBox {
                     if (positionApprenti.equals(positionCliquee)) {
                         timer.cancel();
                         enMouvement = false;
-                        touchTemple(positionCliquee);
+
+                        if (templeMap.containsKey(positionCliquee)) {
+                            touchTemple(positionCliquee);
+                        } else {
+                            System.out.println("Apprenti is not on a temple.");
+                            return;
+                        }
                     }
                 });
             }
@@ -188,21 +192,21 @@ public class MenuGraphique extends VBox {
     }
 
     /** La méthode échange le cristal de l'ordonnateur avec celui du temple,
-     * Qui a pour position le paramêtre donné
+     * Qui a pour position le paramètre donné
      *
-     * @param positionTemple : le temple ou est arrivé l'ordonnateur
+     * @param positionTemple : le temple où est arrivé l'ordonnateur
      */
-    public void touchTemple(Position positionTemple){
-
+    public void touchTemple(Position positionTemple) {
         System.out.println(" dans touchTemple " + templeMap);
         System.out.println(" dans touchTemple " + templeMap.keySet());
-        System.out.println(" dans touchTemple " + templeMap
-        System.out.println(" dans touchTemple " + templeMap.get(positionTemple));
         System.out.println(" dans touchTemple " + positionTemple);
-        apprentiOrdonnateur.switchCristal(templeMap.get(positionTemple).getCouleurCristal(), apprentiOrdonnateur.getMonCristal());
 
-
-
+        Temple temple = templeMap.get(positionTemple);
+        if (temple != null) {
+            apprentiOrdonnateur.switchCristal(temple.getCouleurTemple(), apprentiOrdonnateur.getMonCristal());
+        } else {
+            System.out.println("No temple found at the given position.");
+        }
     }
 
     /**
