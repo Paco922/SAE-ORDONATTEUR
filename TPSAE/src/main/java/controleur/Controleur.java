@@ -24,7 +24,6 @@ public class Controleur implements EventHandler {
             HashMap<Position, Temple> temples = LectureScenario.lecture(fichierScenario);
             System.out.println(temples.toString());
             menuGraphique.setTempleMap(temples);
-
             menuGraphique.dessinSurCarte(temples);
 
 
@@ -35,6 +34,7 @@ public class Controleur implements EventHandler {
     public void redessinerTemples() {
         MenuGraphique menuGraphique = VBoxRoot.getMenuGraphique();
         HashMap<Position, Temple> temples = menuGraphique.getTempleMap();
+        System.out.println("Voici les temples à redessiner : " + temples);
         if (temples != null) {
             menuGraphique.dessinSurCarte(temples);
         }

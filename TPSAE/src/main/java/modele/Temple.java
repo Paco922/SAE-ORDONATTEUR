@@ -2,6 +2,8 @@ package modele;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.HashMap;
+
 public class Temple {
 
     public Position position;
@@ -36,10 +38,19 @@ public class Temple {
         return position;
     }
 
-    public void setCouleurCristal(int couleur){
+    public void setCouleurCristal(int cristal){
 
-        this.couleur = couleur;
+        this.cristal = cristal;
 
+    }
+
+    public static boolean conditionVictoire(HashMap<Position, Temple> templeMap){
+        for (Position key : templeMap.keySet()) {
+            if (templeMap.get(key).getCouleurTemple() != templeMap.get(key).getCouleurCristal()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getCouleurTemple(){
