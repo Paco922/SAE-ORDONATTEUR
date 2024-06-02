@@ -1,5 +1,6 @@
 package modele;
 
+import javafx.geometry.Pos;
 import vue.ConstantesCanva;
 
 import java.util.Collection;
@@ -18,6 +19,7 @@ public class ApprentiOrdonnateur {
         monCristal = 0;
         positionApprenti = new Position(ConstantesCanva.LARGEUR_CANVAS/(2 * ConstantesCanva.CARRE),
                 ConstantesCanva.LARGEUR_CANVAS/(2 * ConstantesCanva.CARRE));
+
     }
     public void setTemples(Collection<Temple> temples){
         this.temples = temples;
@@ -29,12 +31,11 @@ public class ApprentiOrdonnateur {
      * @param cristalARecup, le cristal qui est à récupérer
      * @param cristalADonner, le cristal qui est à donner (au temple)
      */
-    public void switchCristal(int cristalARecup, int cristalADonner){
-
-
-        templeTest.setCouleurCristal(cristalADonner);
-        monCristal = cristalARecup;
-
+    public void switchCristal(Temple temple, int cristalARecup, int cristalADonner) {
+        if (temple != null) {
+            temple.setCouleurCristal(cristalADonner);
+            monCristal = cristalARecup;
+        }
     }
     /**
      * Accesseur sur le champ monCristal

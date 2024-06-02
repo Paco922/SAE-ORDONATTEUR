@@ -1,5 +1,7 @@
 package modele;
 
+import java.util.Objects;
+
 public class Position {
     private static int nombreDePas = 0;
     private int abscisse;
@@ -43,13 +45,18 @@ public class Position {
      * La methode equal retourne vrai quand l'abscisse de this est egale a l'abscisse du parametre et que
      * l'ordonée de this est egal a l'ordonnée du parametre
      */
-    public boolean equals(Position parPosition){
-            if (this.abscisse == parPosition.abscisse)
-                if (this.ordonnee == parPosition.ordonnee)
-                    return true;
-            return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return abscisse == position.abscisse && ordonnee == position.ordonnee;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(abscisse, ordonnee);
+    }
     
     public int getAbscisse(){
         return abscisse;
