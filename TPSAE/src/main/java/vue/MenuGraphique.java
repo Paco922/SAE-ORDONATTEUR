@@ -31,7 +31,7 @@ public class MenuGraphique extends VBox {
     private boolean enMouvement = false;
     private Controleur controleur;
 
-    Image image = new Image("file:///F:\\JavaFX\\SAE-ORDONATTEURLETUSDO\\SpriteJeu\\Ordonateur.png");
+    Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
     private HashMap<Position, Temple> templeMap;
 

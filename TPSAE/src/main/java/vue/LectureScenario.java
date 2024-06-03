@@ -1,7 +1,8 @@
 package vue;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 import java.io.File;
 
 import modele.Position;
@@ -12,10 +13,10 @@ import static vue.ConstantesCanva.*;
  * Classe pour lire les fichiers de scénario et créer des objets Temple basés sur les données du fichier.
  */
 public class LectureScenario {
-    // Variables d'instance
+    // Variables d'instance pour stocker les informations d'un temple
     private Position position;
-    private int couleur; // Supposons que couleur est un int représentant la couleur
-    private int cristal; // Supposons que cristal est un int
+    private int couleur;
+    private int cristal;
 
     /**
      * Lit un fichier de scénario et crée une carte des temples.
@@ -24,23 +25,19 @@ public class LectureScenario {
      * @return un HashMap avec les positions comme clés et les temples comme valeurs représentant le scénario.
      */
     public static HashMap<Position, Temple> lecture(File fichierScenario) {
-        // Remplacer la liste par un type de collection plus adapté
         HashMap<Position, Temple> templesDuScenario = new HashMap<>();
 
         try {
             Scanner scanner = new Scanner(fichierScenario);
-            Temple temple;
             while (scanner.hasNext()) {
-                // LARGEUR_CANVAS = 31 HAUTEUR_CANVA = 31
-                // permet de traiter tous les scénarios proposés
+                // Lecture des coordonnées et ajustement selon les dimensions du canevas
                 int posX = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);
-                int posY = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);;
+                int posY = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);
                 int couleur = scanner.nextInt();
                 int cristal = scanner.nextInt();
-                temple = new Temple(new Position(posX, posY), couleur, cristal);
+                Temple temple = new Temple(new Position(posX, posY), couleur, cristal);
                 templesDuScenario.put(temple.getPosition(), temple);
             }
-            System.out.println(templesDuScenario);
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
