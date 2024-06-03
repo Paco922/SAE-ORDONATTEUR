@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import modele.ApprentiOrdonnateur;
 import modele.Position;
 import modele.Temple;
+import modele.Algorithme;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +70,20 @@ public class MenuGraphique extends VBox {
                 deplacementAvecTimer(positionApprenti, positionCliquee, templeMap);
             }
         });
+    }
+
+    public GraphicsContext getGraphicsContext2D() {
+        return graphicsContext2D;
+    }
+
+    // Add getter for ordonnateurImage
+    public ImageView getOrdonnateurImage() {
+        return ordonnateurImage;
+    }
+
+    // Add getter for labelNombreDePas (if needed)
+    public Label getLabelNombreDePas() {
+        return labelNombreDePas;
     }
 
     public void setControleur(Controleur controleur) {
@@ -185,4 +200,7 @@ public class MenuGraphique extends VBox {
         graphicsContext2D.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
     }
 
+    public Controleur getControleur() {
+        return controleur;
+    }
 }

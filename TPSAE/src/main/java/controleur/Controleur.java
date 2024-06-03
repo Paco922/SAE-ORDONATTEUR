@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import modele.Position;
 import modele.Temple;
@@ -33,6 +34,11 @@ public class Controleur implements EventHandler {
             System.out.println(temples.toString());
             menuGraphique.setTempleMap(temples);
             menuGraphique.dessinSurCarte(temples);
+        }
+
+        if (userData instanceof Method){
+            Method algorithme_tri = (Method) userData;
+            System.out.println("algorithme_tri cliqué!");
         }
     }
 

@@ -1,6 +1,16 @@
 package modele;
 
+import javafx.application.Platform;
+import javafx.scene.paint.Color;
+import vue.VBoxRoot;
+
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static vue.ConstantesCanva.CARRE;
+import static vue.ConstantesCanva.COULEUR_GRILLE;
 
 /**
  * La classe Position représente une position avec des coordonnées x (abscisse) et y (ordonnée).
@@ -48,6 +58,8 @@ public class Position {
             return;
         }
     }
+
+
 
     /**
      * La méthode equals retourne vrai quand l'abscisse de this est égale à l'abscisse du paramètre

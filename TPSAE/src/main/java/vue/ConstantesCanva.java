@@ -9,6 +9,7 @@ public interface ConstantesCanva {
     public final Color COULEUR_GRILLE = Color.BLACK;
 
     public final String INTITULE_MENU_SCENARIOS = "Scénarios";
+    public final String INTITULE_MENU_ALGORITHME = "Scénarios";
 
 
 

@@ -53,6 +53,10 @@ public class ApprentiOrdonnateur {
 
         return monCristal == 0;
     }
+
+    public Position getPositionApprenti() {
+        return positionApprenti;
+    }
 }
 
 
