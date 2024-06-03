@@ -3,6 +3,7 @@ package vue;
 import controleur.Controleur;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -32,7 +33,7 @@ public class MenuGraphique extends VBox {
     private boolean enMouvement = false;
     private Controleur controleur;
 
-    Image image = new Image("file:///C:\\Users\\ousse\\OneDrive\\Bureau\\BUTINFOCOURS\\GRAPHE\\SAE-ORDONATTEUR\\SpriteJeu\\Ordonateur.png");
+    Image image = new Image("file:///F:\\JavaFX\\SAE-ORDONATTEUREREEEE\\SpriteJeu\\Ordonateur.png");
     ImageView ordonnateurImage = new ImageView(image);
     private HashMap<Position, Temple> templeMap;
 
@@ -122,20 +123,18 @@ public class MenuGraphique extends VBox {
         }
     }
 
+
     private void deplacementAvecTimer(Position positionApprenti, Position positionCliquee, HashMap<Position, Temple> templeMap) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    graphicsContext2D.setFill(Color.WHITE);
-                    graphicsContext2D.fillRect(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, CARRE, CARRE);
 
-                    graphicsContext2D.setStroke(COULEUR_GRILLE);
-                    graphicsContext2D.strokeRect(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, CARRE, CARRE);
-
+                    redessinCanva(positionApprenti);
                     positionApprenti.deplacementUneCase(positionCliquee);
                     VBoxRoot.getControleur().redessinerTemples();
+
 
                     graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE);
 
@@ -159,6 +158,16 @@ public class MenuGraphique extends VBox {
             }
         };
         timer.scheduleAtFixedRate(timerTask, 0, 200);
+    }
+
+    public void redessinCanva(Position positionApprenti){
+        graphicsContext2D.setFill(Color.WHITE);
+        graphicsContext2D.fillRect(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, CARRE, CARRE);
+
+        graphicsContext2D.setStroke(COULEUR_GRILLE);
+        graphicsContext2D.strokeRect(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, CARRE, CARRE);
+
+        graphicsContext2D.clearRect(positionApprenti.getAbscisse(), positionApprenti.getOrdonnee(), CARRE, CARRE);
     }
 
     public void touchTemple(Position positionTemple) {

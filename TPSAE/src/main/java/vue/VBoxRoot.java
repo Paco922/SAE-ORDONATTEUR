@@ -59,7 +59,20 @@ public class VBoxRoot extends BorderPane implements ConstantesCanva {
                 algorithme.Algorithme_Tri(templeMap);
             }
         });
+
+        MenuItem algorithmeHeuristique = new MenuItem("Algorithme Heuristique");
+        algorithmeHeuristique.setOnAction(event -> {
+            HashMap<Position, Temple> templeMap = menuGraphique.getTempleMap();
+            if (templeMap != null) {
+                Algorithme algorithme = new Algorithme(templeMap);
+                algorithme.triHeuristique(templeMap, apprenti.getPositionApprenti());
+            }
+
+        });
+
+
         menuAlgorithmes.getItems().add(algorithmeTriItem);
+        menuAlgorithmes.getItems().add(algorithmeHeuristique);
 
         // Ajout de la barre des menus et du canvas du jeu
         this.setTop(menuBar);

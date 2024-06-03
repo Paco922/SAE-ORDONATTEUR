@@ -39,6 +39,7 @@ public class Controleur implements EventHandler {
         if (userData instanceof Method){
             Method algorithme_tri = (Method) userData;
             System.out.println("algorithme_tri cliqué!");
+            System.out.println();
         }
     }
 
@@ -53,4 +54,5 @@ public class Controleur implements EventHandler {
             menuGraphique.dessinSurCarte(temples);
         }
     }
+
 }
