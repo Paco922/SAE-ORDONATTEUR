@@ -277,6 +277,7 @@ public class MenuGraphique extends VBox {
         // Draw the grid and numbers again
         dessinerGrille();
         dessinerNumeros();
+        Position.resetNombreDePas();
 
         // Reset the position of the apprentice
         positionApprenti = new Position(15, 15);

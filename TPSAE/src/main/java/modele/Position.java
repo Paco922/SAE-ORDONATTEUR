@@ -83,6 +83,13 @@ public class Position {
     }
 
     /**
+     * Méthode pour réinitialiser le nombre de pas à 0.
+     */
+    public static void resetNombreDePas() {
+        nombreDePas = 0;
+    }
+
+    /**
      * Retourne la coordonnée x (abscisse) de la position.
      * @return La coordonnée x.
      */
