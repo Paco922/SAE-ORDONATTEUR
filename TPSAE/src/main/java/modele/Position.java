@@ -23,7 +23,6 @@ public class Position {
 
     /**
      * Constructeur pour initialiser une position avec des coordonnées spécifiées.
-     *
      * @param abscisse La coordonnée x.
      * @param ordonnee La coordonnée y.
      */
@@ -33,11 +32,9 @@ public class Position {
     }
 
     /**
-     * La méthode deplacementUneCase déplace la position this d'une case
-     * pour la rapprocher de celle du paramètre parPosition.
-     * Elle incrémente le champ statique nombreDePas.
-     *
-     * @param parPosition La position vers laquelle this se rapproche.
+     * La méthode deplacementUneCase déplace la position this d'une case pour la rapprocher de celle du paramètre parPosition.
+     * Elle incrémente le champ statique nombreDePas, pour l'affichage UI
+     * @param parPosition La position visée.
      */
     public void deplacementUneCase(Position parPosition) {
         nombreDePas++;
@@ -77,8 +74,7 @@ public class Position {
     }
 
     /**
-     * Retourne le hash code de la position.
-     *
+     * Méthode pour hasher les Positions.
      * @return Le hash code de la position.
      */
     @Override
@@ -88,7 +84,6 @@ public class Position {
 
     /**
      * Retourne la coordonnée x (abscisse) de la position.
-     *
      * @return La coordonnée x.
      */
     public int getAbscisse() {
@@ -97,7 +92,6 @@ public class Position {
 
     /**
      * Retourne la coordonnée y (ordonnee) de la position.
-     *
      * @return La coordonnée y.
      */
     public int getOrdonnee() {
@@ -105,9 +99,8 @@ public class Position {
     }
 
     /**
-     * Retourne une représentation en chaîne de la position.
-     *
-     * @return Une chaîne représentant la position.
+     * Retourne une représentation en string de la position.
+     * @return Le string représentant la position.
      */
     @Override
     public String toString() {
@@ -115,8 +108,7 @@ public class Position {
     }
 
     /**
-     * Retourne le nombre total de déplacements effectués.
-     *
+     * Méthode getNombreDePas, retourne le nombre total de déplacements effectués.
      * @return Le nombre de déplacements.
      */
     public static int getNombreDePas() {

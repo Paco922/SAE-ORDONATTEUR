@@ -3,9 +3,9 @@ package vue;
 import controleur.Controleur;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import modele.ApprentiOrdonnateur;
 import modele.Position;
 import modele.Temple;
-import modele.Algorithme;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,26 +22,47 @@ import java.util.TimerTask;
 
 import static vue.ConstantesCanva.*;
 
+/**
+ * Classe MenuGraphique, gère tout ce qui à un rapport au GUI, dont le Label de pas, la carte, et le contexteGraphique (pour déssiner)
+ */
 public class MenuGraphique extends VBox {
+    /** Label labelNombreDePas, permet de démontrer le nombre de pas effectué. */
     private Label labelNombreDePas;
+    /** canvasCarte, permet d'utiliser la carte (en canva de JavaFX)*/
     static Canvas canvasCarte;
+    /** graphicsContext2D, permet de dessiner sur la carte*/
     static GraphicsContext graphicsContext2D;
 
+    /** apprentiOrdonnateur, instancie un objet de l'apprentiOrdonnateur */
     private ApprentiOrdonnateur apprentiOrdonnateur;
+    /** positionApprenti, instancie un objet de la positionApprenti */
     private Position positionApprenti;
+    /** boolean enMouvement, permet d'interdire de cliquer plusieurs fois d'affiler avant que l'adonnateur n'ait fini son voyage */
     private boolean enMouvement = false;
+    /** controleur, instancie le controleur */
     private Controleur controleur;
 
-    Image image = new Image("file:///F:\\JavaFX\\SAE-ORDONATTEUREREEEE\\SpriteJeu\\Ordonateur.png");
+    /** image, instancie l'image de l'ordonnateur*/
+    Image image = new Image("file:///F:\\JavaFX\\SAE-ORDONATTEUREREEEE\\SpriteJeu\\ordonnateur.png");
+    /** instancie la vision de l'image de l'ordonnateur (merciJavaFX).. */
     ImageView ordonnateurImage = new ImageView(image);
+
+    /** instancie le HashMap qui contient les informations sur les temples */
     private HashMap<Position, Temple> templeMap;
 
+    /**
+     * Constructeur menugraphique, permet d'initialiser la carte et le GUI, et gère également les clics sur le GUI par l'utilisateur pour la résolution manuelle
+     * grâce à la méthode deplacementAvecTimer.
+     */
     public MenuGraphique() {
         apprentiOrdonnateur = new ApprentiOrdonnateur();
 
         labelNombreDePas = new Label("Nombre de pas : 0");
         canvasCarte = new Canvas(LARGEUR_CANVAS, HAUTEUR_CANVAS);
         graphicsContext2D = canvasCarte.getGraphicsContext2D();
+
+        Button cleanMapButton = new Button("Nettoyer la carte!");
+        this.getChildren().add(cleanMapButton);
 
         dessinerGrille();
         this.getChildren().add(labelNombreDePas);
@@ -71,34 +91,49 @@ public class MenuGraphique extends VBox {
                 deplacementAvecTimer(positionApprenti, positionCliquee, templeMap);
             }
         });
+        cleanMapButton.setOnAction(event -> reinitialisationCarte());
     }
 
+
+
+
+    /** Getteur getGraphicsContext pour récupèrer le graphicsContext */
     public GraphicsContext getGraphicsContext2D() {
         return graphicsContext2D;
     }
 
-    // Add getter for ordonnateurImage
+    /** Getteur getOrdonnateurImage pour récupèrer l'ordonnateurImage */
     public ImageView getOrdonnateurImage() {
         return ordonnateurImage;
     }
 
-    // Add getter for labelNombreDePas (if needed)
+    /** Getteur getLabelNombreDePas pour récupèrer le nombreDePas */
     public Label getLabelNombreDePas() {
         return labelNombreDePas;
     }
+    /** Setteur setLabelNombreDePas pour set le nombreDePas */
+    public void setLabelNombreDePas(Label labelNombreDePas){
+        this.labelNombreDePas = labelNombreDePas;
+    }
 
+    /** Setteur setControleur pour set le controleur */
     public void setControleur(Controleur controleur) {
         this.controleur = controleur;
     }
 
+    /** Setteur setTempleMap pour set la carte */
     public void setTempleMap(HashMap<Position, Temple> templeMap) {
         this.templeMap = templeMap;
     }
 
+    /** Getteur getTempleMap pour récupèrer le templeMap contenant les temples */
     public HashMap<Position, Temple> getTempleMap() {
         return templeMap;
     }
 
+    /**
+     * Méthode dessinerGrille, permet de dessiner la grille sur le GUI.
+     */
     private void dessinerGrille() {
         graphicsContext2D.setStroke(COULEUR_GRILLE);
         for (int i = 0; i <= 30; i++) {
@@ -108,6 +143,9 @@ public class MenuGraphique extends VBox {
         }
     }
 
+    /**
+     * Méthode dessinerNumeros, permet de mettre les numéros dans les cases sur le GUI.
+     */
     private void dessinerNumeros() {
         int numCol = 0;
         graphicsContext2D.setFill(COULEUR_GRILLE);
@@ -124,6 +162,13 @@ public class MenuGraphique extends VBox {
     }
 
 
+    /**
+     * Méthode déplacementAvecTimer, permet de gérer les déplacements venant du clic des utilisateurs.
+     * Redessine la carte entière à chaque déplacement..
+     * @param positionApprenti récupère la position de l'apprenti afin de le redessiner
+     * @param positionCliquee récupère la position cliquée
+     * @param templeMap récupère le templeMap afin de redessiner le templeMap.
+     */
     private void deplacementAvecTimer(Position positionApprenti, Position positionCliquee, HashMap<Position, Temple> templeMap) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -160,6 +205,10 @@ public class MenuGraphique extends VBox {
         timer.scheduleAtFixedRate(timerTask, 0, 200);
     }
 
+    /**
+     * Méthode redessinCanva, permet de redessiner le Canva.
+     * @param positionApprenti afin de redessiner l'apprenti (oui, c'est un thème récurrent.)
+     */
     public void redessinCanva(Position positionApprenti){
         graphicsContext2D.setFill(Color.WHITE);
         graphicsContext2D.fillRect(positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE, CARRE, CARRE);
@@ -170,6 +219,10 @@ public class MenuGraphique extends VBox {
         graphicsContext2D.clearRect(positionApprenti.getAbscisse(), positionApprenti.getOrdonnee(), CARRE, CARRE);
     }
 
+    /**
+     * Méthode touchTemple, permet de gérer l'échange de cristaux.
+     * @param positionTemple récupère la position du temple avec lequel échanger.
+     */
     public void touchTemple(Position positionTemple) {
         System.out.println(" dans touchTemple " + templeMap);
         System.out.println(" dans touchTemple " + templeMap.keySet());
@@ -182,6 +235,10 @@ public class MenuGraphique extends VBox {
         }
     }
 
+    /**
+     * Méthode dessinSurCarte, permet de redessiner toute la carte.
+     * @param templeMap récupère les temples.
+     */
     public void dessinSurCarte(HashMap<Position, Temple> templeMap) {
         dessinerGrille();
         dessinerNumeros();
@@ -200,6 +257,11 @@ public class MenuGraphique extends VBox {
         }
     }
 
+    /**
+     * Méthode dessinerCristal, permet de dessiner les cristaux sur la carte.
+     * @param position récupère la position du cristal
+     * @param temple récupère le temple.
+     */
     private void dessinerCristal(Position position, Temple temple) {
         double centerX = (position.getAbscisse() * CARRE) + (CARRE / 2);
         double centerY = (position.getOrdonnee() * CARRE) + (CARRE / 2);
@@ -209,7 +271,27 @@ public class MenuGraphique extends VBox {
         graphicsContext2D.fillOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
     }
 
-    public Controleur getControleur() {
-        return controleur;
+    /**
+     * Méthode reinitialisationCarte, permet de reinitialiser la carte, en la redessinant
+     */
+    public void reinitialisationCarte() {
+        // Clear the canvas
+        graphicsContext2D.setFill(Color.WHITE);
+        graphicsContext2D.fillRect(0, 0, LARGEUR_CANVAS, HAUTEUR_CANVAS);
+
+        // Draw the grid and numbers again
+        dessinerGrille();
+        dessinerNumeros();
+
+        // Reset the position of the apprentice
+        positionApprenti = new Position(15, 15);
+        graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE);
+
+        labelNombreDePas.setText("Nombre de pas : 0");
+
+        // Clear the temples map
+        templeMap.clear();
     }
 }
+
+

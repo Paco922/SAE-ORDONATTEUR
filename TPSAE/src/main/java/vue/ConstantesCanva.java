@@ -2,6 +2,9 @@ package vue;
 
 import javafx.scene.paint.Color;
 
+/**
+ * ConstantesCanva, valeures constantes pour menuGraphique principalement.
+ */
 public interface ConstantesCanva {
     public final int CARRE = 19;
     public final int LARGEUR_CANVAS = 31 * CARRE;

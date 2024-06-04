@@ -10,7 +10,7 @@ import modele.Temple;
 import static vue.ConstantesCanva.*;
 
 /**
- * Classe pour lire les fichiers de scénario et créer des objets Temple basés sur les données du fichier.
+ * Classe LectureScenario pour lire les fichiers de scénario et créer des objets Temple basés sur les données du fichier.
  */
 public class LectureScenario {
     // Variables d'instance pour stocker les informations d'un temple
@@ -30,7 +30,7 @@ public class LectureScenario {
         try {
             Scanner scanner = new Scanner(fichierScenario);
             while (scanner.hasNext()) {
-                // Lecture des coordonnées et ajustement selon les dimensions du canevas
+                // Lecture des coordonnées et ajustement selon les dimensions du Canva
                 int posX = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);
                 int posY = scanner.nextInt() + LARGEUR_CANVAS / (2 * CARRE);
                 int couleur = scanner.nextInt();
@@ -46,9 +46,8 @@ public class LectureScenario {
     }
 
     /**
-     * Retourne une représentation sous forme de chaîne de la classe LectureScenario.
-     *
-     * @return une chaîne décrivant l'objet LectureScenario.
+     * Méthode toString, renvoie une représentation sous forme de string de l'objet temple selectionné.
+     * @return une chaine de charactère décrivant l'objet de LectureScenario.
      */
     @Override
     public String toString() {

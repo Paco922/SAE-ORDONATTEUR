@@ -2,6 +2,7 @@ package controleur;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import java.io.File;
 import java.lang.reflect.Method;
@@ -54,5 +55,6 @@ public class Controleur implements EventHandler {
             menuGraphique.dessinSurCarte(temples);
         }
     }
+
 
 }

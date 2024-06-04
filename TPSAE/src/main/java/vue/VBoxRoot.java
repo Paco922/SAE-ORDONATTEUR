@@ -2,6 +2,7 @@ package vue;
 
 import controleur.Controleur;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -15,19 +16,35 @@ import modele.Temple;
 import java.io.File;
 import java.util.HashMap;
 
+/**
+ * Classe VBoxRoot, permet d'accèder aux différents élèments du code, dont ApprentiOrdonanteur, le Controleur, et le MenuGraphique.
+ * Permet également d'initialiser le MenuGraphique, et y ajoute le menu avec les scénarios, et le menu avec les algorithmes.
+ */
 public class VBoxRoot extends BorderPane implements ConstantesCanva {
 
     private static ApprentiOrdonnateur apprenti;
     private static Controleur controleur;
     private static MenuGraphique menuGraphique;
-    private static Algorithme algorithme;
 
+
+
+
+    /**
+     * Constructeur VBoxRoot, permet d'initialiser les différentes classes à accèder.
+     */
     public VBoxRoot() {
+        /** Initialise apprenti pour acceder à la classe ApprentiOrdonnateur */
         apprenti = new ApprentiOrdonnateur();
+        /** Initialise controleur pour acceder à la classe Controleur */
         controleur = new Controleur();
+        /** Initialise menuGraphique pour acceder à la classe MenuGraphique */
         menuGraphique = new MenuGraphique();
 
-        menuGraphique.setControleur(controleur); // Set the controller here
+
+
+
+
+        menuGraphique.setControleur(controleur);
 
         // La barre des menus
         MenuBar menuBar = new MenuBar();
@@ -48,18 +65,21 @@ public class VBoxRoot extends BorderPane implements ConstantesCanva {
             menuItem.setUserData(scenario[i]);
             menuItem.setOnAction(controleur);
             menuScenarios.getItems().add(menuItem);
+
         }
 
-        // Inside VBoxRoot constructor or appropriate method
+
+        // Ajout de l'algorithme de Tri au menu Algorithme
         MenuItem algorithmeTriItem = new MenuItem("Algorithme Tri");
         algorithmeTriItem.setOnAction(event -> {
             HashMap<Position, Temple> templeMap = menuGraphique.getTempleMap();
             if (templeMap != null) {
                 Algorithme algorithme = new Algorithme(templeMap);
-                algorithme.Algorithme_Tri(templeMap);
+                algorithme.algorithmeTriBase(templeMap);
             }
         });
 
+         // Ajout de l'algorithme Heuristique au menu Algorithme
         MenuItem algorithmeHeuristique = new MenuItem("Algorithme Heuristique");
         algorithmeHeuristique.setOnAction(event -> {
             HashMap<Position, Temple> templeMap = menuGraphique.getTempleMap();
@@ -71,6 +91,7 @@ public class VBoxRoot extends BorderPane implements ConstantesCanva {
         });
 
 
+        // Ajout des algorithmes aux menu
         menuAlgorithmes.getItems().add(algorithmeTriItem);
         menuAlgorithmes.getItems().add(algorithmeHeuristique);
 
@@ -79,13 +100,24 @@ public class VBoxRoot extends BorderPane implements ConstantesCanva {
         this.setCenter(menuGraphique);
     }
 
+    /**
+     * Méthode getteur getApprenti, renvoie apprenti, ce qui permet l'accès à la classe apprenti.
+     * @return apprenti
+     */
     public static ApprentiOrdonnateur getApprenti() {
         return apprenti;
     }
 
+    /**
+     * Méthode getteur getControleur, renvoie controleur, ce qui permet l'accès à la classe Controleur (important)
+     * @return controleur
+     */
     public static Controleur getControleur() { return controleur; }
 
+    /**
+     * Méthode getteur getMenuGraphique, renvoie menuGraphique, ce qui permet l'accès à la classe MenuGraphique
+     * @return menuGraphique
+     */
     public static MenuGraphique getMenuGraphique() { return menuGraphique; }
 
-    public static Algorithme getAlgorithme() { return algorithme; }
 }

@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Classe pour le lancement de l'application.
+ */
 public class ApprentiOrdonnateurApplication extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         VBoxRoot root = new VBoxRoot();

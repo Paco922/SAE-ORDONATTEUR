@@ -2,6 +2,8 @@ package modele;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import vue.MenuGraphique;
+import vue.VBoxRoot;
 
 import java.util.HashMap;
 
@@ -46,13 +48,13 @@ public class Temple {
             case 8: return Color.PINK;
             case 9: return Color.BROWN;
             case 10: return Color.GRAY;
-            default: return Color.BLACK;
+            case 11: return Color.PURPLE;
         }
+        return null;
     }
 
     /**
-     * Retourne la position du temple.
-     *
+     * Getteur getPosition, pour récupèrer la position du temple.
      * @return La position du temple.
      */
     public Position getPosition() {
@@ -60,17 +62,15 @@ public class Temple {
     }
 
     /**
-     * Définit la couleur du cristal du temple.
-     *
+     * Setteur setCouleurCristal, pour récupèrer la couleur du cristal du temple.
      * @param cristal La nouvelle couleur du cristal.
      */
     public void setCouleurCristal(int cristal) {
         this.cristal = cristal;
     }
 
-    /**
+    /** Méthode conditionVictoire,
      * Vérifie si tous les temples dans la carte ont des cristaux correspondant à leur couleur.
-     *
      * @param templeMap La carte des temples.
      * @return true si tous les cristaux correspondent à la couleur des temples, false sinon.
      */
@@ -83,9 +83,9 @@ public class Temple {
         return true;
     }
 
+
     /**
-     * Retourne la couleur du temple.
-     *
+     * Getteur getCouleurTemple, pour récupèrer la couleur du temple.
      * @return La couleur du temple.
      */
     public int getCouleurTemple() {
@@ -93,8 +93,7 @@ public class Temple {
     }
 
     /**
-     * Retourne la couleur du cristal du temple.
-     *
+     * Getteur getCouleurCristal, pour récupèrer la couleur du cristal du temple.
      * @return La couleur du cristal.
      */
     public int getCouleurCristal() {
@@ -102,9 +101,8 @@ public class Temple {
     }
 
     /**
-     * Retourne une représentation en chaîne du temple.
-     *
-     * @return Une chaîne représentant le temple.
+     * Méthode toString pour récupèrer un string contenant l'information des temples.
+     * @return Un string contenant les informations des temples.
      */
     @Override
     public String toString() {
