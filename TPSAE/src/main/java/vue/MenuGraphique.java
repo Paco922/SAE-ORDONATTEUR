@@ -76,7 +76,6 @@ public class MenuGraphique extends VBox {
 
         canvasCarte.setOnMouseClicked(event -> {
             templeMap = VBoxRoot.getMenuGraphique().getTempleMap();
-            System.out.println("Templemap de MenuGraphique" + templeMap);
             if (!enMouvement) {
                 enMouvement = true;
 
@@ -224,10 +223,6 @@ public class MenuGraphique extends VBox {
      * @param positionTemple récupère la position du temple avec lequel échanger.
      */
     public void touchTemple(Position positionTemple) {
-        System.out.println(" dans touchTemple " + templeMap);
-        System.out.println(" dans touchTemple " + templeMap.keySet());
-        System.out.println(" dans touchTemple " + positionTemple);
-        System.out.println("La position du joueur " + positionApprenti);
 
         Temple temple = templeMap.get(positionTemple);
         if (apprentiOrdonnateur != null && temple != null) {

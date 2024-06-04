@@ -3,6 +3,7 @@ module org.example.tpsae {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
+    requires org.junit.jupiter.api;
 
     opens org.example.tpsae to javafx.fxml;
 
