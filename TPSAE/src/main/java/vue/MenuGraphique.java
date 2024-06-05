@@ -43,7 +43,7 @@ public class MenuGraphique extends VBox {
     private Controleur controleur;
 
     /** image, instancie l'image de l'ordonnateur*/
-    Image image = new Image("file:///F:\\JavaFX\\SAE-ORDONATTEUREREEEE\\SpriteJeu\\ordonnateur.png");
+    Image image = new Image("file:///C:\\Users\\22300445\\Downloads\\TP_Reservation_Java-main(2)\\TP_Reservation_Java-main\\SAE-ORDONATTEUR\\SpriteJeu\\ordonnateur.png");
     /** instancie la vision de l'image de l'ordonnateur (merciJavaFX).. */
     ImageView ordonnateurImage = new ImageView(image);
 

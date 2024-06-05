@@ -1,4 +1,5 @@
 package Tests;
+import javafx.scene.paint.Color;
 import modele.Algorithme;
 import modele.ApprentiOrdonnateur;
 import modele.Position;
@@ -23,6 +24,7 @@ public class ModeleTest {
     public static void testPosition() {
         Position position1 = new Position(0, 0);
         Position position2 = new Position(1, 1);
+        Position position3 = new Position(0, 0);
 
         // Test de la méthode deplacementUneCase()
         position1.deplacementUneCase(position2);
@@ -34,6 +36,13 @@ public class ModeleTest {
         assert position1.getOrdonnee() == 0 : "Erreur: La coordonnée y devrait être 0.";
         assert position2.getAbscisse() == 1 : "Erreur: La coordonnée x devrait être 1.";
         assert position2.getOrdonnee() == 1 : "Erreur: La coordonnée y devrait être 1.";
+
+        // Test de la méthode equals
+        assert position1.equals(position3) : "Erreur: position1 devrait être égale à position3.";
+        assert !position1.equals(position2) : "Erreur: position1 ne devrait pas être égale à position2.";
+        assert !position1.equals(null) : "Erreur: position1 ne devrait pas être égale à null.";
+        assert !position1.equals(new Object()) : "Erreur: position1 ne devrait pas être égale à un objet d'un autre type.";
+
 
         System.out.println("Tests pour Position passés avec succès.");
     }
@@ -50,6 +59,25 @@ public class ModeleTest {
         assert temple.getPosition().equals(position) : "Erreur: La position devrait être égale à celle spécifiée.";
         assert temple.getCouleurTemple() == 1 : "Erreur: La couleur du temple devrait être 1.";
         assert temple.getCouleurCristal() == 1 : "Erreur: La couleur du cristal devrait être 1.";
+
+        // Test de la méthode setCouleurCristal
+        temple.setCouleurCristal(2);
+        assert temple.getCouleurCristal() == 2 : "Erreur: La couleur du cristal devrait être 2 après modification.";
+
+        // Test de la méthode getCouleurValue
+        assert temple.getCouleurValue(1) == Color.RED : "Erreur: La couleur 1 devrait être RED.";
+        assert temple.getCouleurValue(2) == Color.ORANGE : "Erreur: La couleur 2 devrait être ORANGE.";
+        assert temple.getCouleurValue(11) == Color.PURPLE : "Erreur: La couleur 11 devrait être PURPLE.";
+        assert temple.getCouleurValue(0) == null : "Erreur: Une couleur invalide devrait retourner null.";
+
+        // Test de la méthode conditionVictoire
+        HashMap<Position, Temple> templeMap = new HashMap<>();
+        templeMap.put(new Position(0, 0), new Temple(new Position(0, 0), 1, 1));
+        templeMap.put(new Position(1, 1), new Temple(new Position(1, 1), 2, 2));
+        assert Temple.conditionVictoire(templeMap) : "Erreur: Toutes les couleurs des cristaux correspondent aux couleurs des temples.";
+
+        templeMap.put(new Position(2, 2), new Temple(new Position(2, 2), 3, 4));
+        assert !Temple.conditionVictoire(templeMap) : "Erreur: Les couleurs des cristaux ne correspondent pas aux couleurs des temples.";
 
         System.out.println("Tests pour Temple passés avec succès.");
     }
