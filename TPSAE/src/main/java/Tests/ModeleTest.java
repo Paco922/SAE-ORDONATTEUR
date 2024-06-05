@@ -15,6 +15,11 @@ public class ModeleTest {
         testAlgorithme();
     }
 
+    /**
+     * Méthode testPosition
+     * Teste la classe Position, et la méthode deplacementUneCase
+     * Tout devrait retourner sans erreur
+     */
     public static void testPosition() {
         Position position1 = new Position(0, 0);
         Position position2 = new Position(1, 1);
@@ -33,6 +38,10 @@ public class ModeleTest {
         System.out.println("Tests pour Position passés avec succès.");
     }
 
+    /**
+     * Méthode testTemple, teste la méthode Temple
+     * Tout devrait retourner sans erreur
+     */
     public static void testTemple() {
         Position position = new Position(0, 0);
         Temple temple = new Temple(position, 1, 1);
@@ -45,6 +54,10 @@ public class ModeleTest {
         System.out.println("Tests pour Temple passés avec succès.");
     }
 
+    /**
+     * Méthode testApprentiOrdonnateur, teste la méthode ApprentiOrdonnateur
+     * Tout devrait retourner sans erreur
+     */
     public static void testApprentiOrdonnateur() {
         ApprentiOrdonnateur apprentiOrdonnateur = new ApprentiOrdonnateur();
 
@@ -56,6 +69,10 @@ public class ModeleTest {
         System.out.println("Tests pour ApprentiOrdonnateur passés avec succès.");
     }
 
+    /**
+     * Méthode testAlgorithme, teste la méthode Algorithme
+     * Tout devrait retourner sans erreur
+     */
     public static void testAlgorithme() {
         HashMap<Position, Temple> mapTemple = new HashMap<>();
         // Ajoute des temples à la carte pour le test

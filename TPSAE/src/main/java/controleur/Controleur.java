@@ -28,17 +28,15 @@ public class Controleur implements EventHandler {
     public void handle(Event event) {
         MenuGraphique menuGraphique = VBoxRoot.getMenuGraphique();
         Object userData = ((MenuItem) event.getSource()).getUserData();
-        if (userData instanceof File) { // L'utilisateur a choisi un scénario
+        if (userData instanceof File) {
             File fichierScenario = (File) userData;
             System.out.println(fichierScenario.getName());
             HashMap<Position, Temple> temples = LectureScenario.lecture(fichierScenario);
-            System.out.println(temples.toString());
             menuGraphique.setTempleMap(temples);
             menuGraphique.dessinSurCarte(temples);
         }
 
         if (userData instanceof Method){
-            Method algorithme_tri = (Method) userData;
             System.out.println("algorithme_tri cliqué!");
             System.out.println();
         }

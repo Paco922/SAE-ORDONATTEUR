@@ -72,12 +72,10 @@ public class Algorithme {
             @Override
             protected Void call() {
                     Temple templePlusProche = templePlusProche(mapTemple, positionOrdonnateur);
-                    int couleur_temple = templePlusProche.getCouleurTemple();
-                    int couleur_cristal = templePlusProche.getCouleurCristal();
-
 
                     moveApprentiToTemple(templePlusProche);
                     apprentiOrdonnateur.switchCristal(templePlusProche, templePlusProche.getCouleurCristal(), apprentiOrdonnateur.getMonCristal());
+
                     while (!Temple.conditionVictoire(mapTemple)) {
                         for (Temple temple_recursif : mapTemple.values()) {
                             if (apprentiOrdonnateur.monCristal == temple_recursif.getCouleurTemple()) {
