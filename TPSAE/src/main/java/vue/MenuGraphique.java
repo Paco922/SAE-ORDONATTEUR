@@ -280,7 +280,7 @@ public class MenuGraphique extends VBox {
         Position.resetNombreDePas();
 
         // Reset the position of the apprentice
-        positionApprenti = new Position(15, 15);
+        apprentiOrdonnateur.setPositionApprenti(new Position(15, 15));
         graphicsContext2D.drawImage(ordonnateurImage.getImage(), positionApprenti.getAbscisse() * CARRE, positionApprenti.getOrdonnee() * CARRE);
 
         labelNombreDePas.setText("Nombre de pas : 0");

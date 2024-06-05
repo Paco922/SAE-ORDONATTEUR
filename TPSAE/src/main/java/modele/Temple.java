@@ -75,6 +75,9 @@ public class Temple {
      * @return true si tous les cristaux correspondent à la couleur des temples, false sinon.
      */
     public static boolean conditionVictoire(HashMap<Position, Temple> templeMap) {
+        if (templeMap == null){
+            return true;
+        }
         for (Temple temple : templeMap.values()) {
             if (temple.getCouleurTemple() != temple.getCouleurCristal()) {
                 return false;

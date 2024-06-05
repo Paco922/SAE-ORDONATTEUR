@@ -66,6 +66,9 @@ public class ApprentiOrdonnateur {
     public Position getPositionApprenti() {
         return positionApprenti;
     }
-}
 
+    public void setPositionApprenti(Position positionAInstaurer){
+        this.positionApprenti = positionAInstaurer;
+    }
+}
 

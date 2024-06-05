@@ -7,6 +7,8 @@ import modele.Temple;
 
 import java.util.HashMap;
 
+import static modele.Temple.conditionVictoire;
+
 public class ModeleTest {
 
     public static void main(String[] args) {
@@ -74,10 +76,10 @@ public class ModeleTest {
         HashMap<Position, Temple> templeMap = new HashMap<>();
         templeMap.put(new Position(0, 0), new Temple(new Position(0, 0), 1, 1));
         templeMap.put(new Position(1, 1), new Temple(new Position(1, 1), 2, 2));
-        assert Temple.conditionVictoire(templeMap) : "Erreur: Toutes les couleurs des cristaux correspondent aux couleurs des temples.";
+        assert conditionVictoire(templeMap) : "Erreur: Toutes les couleurs des cristaux correspondent aux couleurs des temples.";
 
         templeMap.put(new Position(2, 2), new Temple(new Position(2, 2), 3, 4));
-        assert !Temple.conditionVictoire(templeMap) : "Erreur: Les couleurs des cristaux ne correspondent pas aux couleurs des temples.";
+        assert !conditionVictoire(templeMap) : "Erreur: Les couleurs des cristaux ne correspondent pas aux couleurs des temples.";
 
         System.out.println("Tests pour Temple passés avec succès.");
     }
@@ -112,6 +114,9 @@ public class ModeleTest {
         // Test des méthodes sans lancement effectif de l'algorithme (fonctionnalité à vérifier manuellement)
         algorithme.algorithmeTriBase(mapTemple);
         algorithme.triHeuristique(mapTemple, new Position(0, 0));
+
+        assert conditionVictoire(mapTemple): "Erreur, la map devrait-être triée";
+
 
         System.out.println("Tests pour Algorithme passés avec succès.");
     }
